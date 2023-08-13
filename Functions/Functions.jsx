@@ -4,8 +4,8 @@ export let EndPoint = 'https://asset-register.onrender.com'
 
 export const isOnline = ()=>{
     return new Promise((resolve, reject) => {
-        if(localStorage.getItem("user")){
-            const data =  JSON.parse(localStorage.getItem("user"))
+        if(sessionStorage.getItem("user")){
+            const data =  JSON.parse(sessionStorage.getItem("user"))
             resolve(data)
         }else{
             reject(null)
@@ -16,7 +16,7 @@ export const isOnline = ()=>{
 
 export const logOut = ()=>{
     return new Promise((resolve, reject) => {
-        localStorage.removeItem('user')
+        sessionStorage.removeItem('user')
         location.reload()
     })
 }
@@ -49,7 +49,7 @@ export const GetData = (routeName)=>{
 
 export const GetUser = (email)=>{
     return new Promise((resolve, reject) => {
-        FunRequest.get(EndPoint + '/api/tuc/' + 'users' + "/" + email).then((doc)=>{
+        FunRequest.get(EndPoint + '/api/' + 'users' + "/" + email).then((doc)=>{
             if(doc){
                resolve(doc)
             }else{

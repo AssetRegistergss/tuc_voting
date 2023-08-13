@@ -4,7 +4,7 @@ import Vote_card from '@/components/Vote_card'
 import React, { useEffect, useState } from 'react'
 import ProgressBar from 'funuicss/component/ProgressBar'
 import Button from 'funuicss/component/Button';
-import { AddData } from '@/Functions/Functions';
+import { AddData, isOnline } from '@/Functions/Functions';
 import Loader from '@/components/Loader';
 // import { TiFlashOutline } from "react-icons/ti";
 export default function Voting() {
@@ -25,10 +25,14 @@ export default function Voting() {
     const [votedState, setvotedState] = useState(0)
     const [done_with_everything, setdone_with_everything] = useState(false)
     const [loading, setloading] = useState(false)
+    const [me, setme] = useState("")
 
     useEffect(() => {
-
-    }, [candidates_voted_for])
+      if(!me){
+        isOnline()
+        .then(doc=>setme(doc))
+      }
+    })
     
 
     const candidates = [
@@ -174,80 +178,84 @@ export default function Voting() {
 
        
     }
-  return (
-    <div>
-        {
-         loading &&  <Loader />
-        }
-      <Nav />
-      
-      <div className="padding-top-100">
-        <div className="container">
-            <div className="h2">Ghana Statistical Service TUC Voting</div>
-            <div>Select the candidates you wish to vote for.</div>
-
-            <div className="section">
-                <div className="vote_progress_container">
-                    <div className="vote_progress gradient" style={{width:`${percentage_voted}%` , padding:`${parseInt(percentage_voted) > 0 ? '0 2rem' : ''}`}}>
-                    {
-                        parseInt(percentage_voted) > 0 && <> <span>{`${percentage_voted}`}</span>%  </>
-                    }
-                    </div>
-                </div>
-            </div>
-
+  if(me){
+    return (
+        <div>
             {
-                parseInt(percentage_voted) < 100 ?
-                <div className="margin-top-50">
-        
-                <div>
-                     <div className=" padding margin-bottom-20">
-                    <div className="h2">{positions[votedState]}</div>
-                    <div>You can only choose one candidate here</div>
-                </div>
-                <div className="row">
-                    { 
-                        candidates?.filter((doc)=> {
-                            if(doc.position == `${positions[votedState]}`){
-                                return doc
-                            }
-                        } ).map((item, index) => (
-                    <div className="col sm-12 md-6 lg-4 padding" key={item.name} onClick={()=>HandleVote(item)}>
-                   <Vote_card data={item}/>
-                    </div>
-                        ))
-                    }
-                </div>
-                </div>
-           
-            </div>
-            : done_with_everything && <div className='thank_you_card'>
-                <div className="row central">
-                    <div className="col sm-12 md-4 lg-4 paddding">
-                        <img src="/thank_you.svg" className='fit' alt="" />
-                    </div>
-                    <div className="col sm-12 md-8 lg-8 paddding">
-                       <div className="h4"> Thank you for casting your vote!</div>
-                       <div className="section">
-                       Please wait for the voting to conclude in order to see the results.
-                       </div>
-                       <div className="section">
-                        <Button 
-                        text="Click to LogOut"
-                        bg="primary"
-                        rounded
-                        funcss='padding-20'
-                        startIcon={<i className='fas fa-bars' />}
-                        fullWidth
-                        />
-                       </div>
-                    </div>
-                </div>
-            </div>
+             loading &&  <Loader />
             }
-
+          <Nav  />
+          
+          <div className="padding-top-100">
+            <div className="container">
+                <div className="h2">Ghana Statistical Service TUC Voting</div>
+                <div>Select the candidates you wish to vote for.</div>
+    
+                <div className="section">
+                    <div className="vote_progress_container">
+                        <div className="vote_progress gradient" style={{width:`${percentage_voted}%` , padding:`${parseInt(percentage_voted) > 0 ? '0 2rem' : ''}`}}>
+                        {
+                            parseInt(percentage_voted) > 0 && <> <span>{`${percentage_voted}`}</span>%  </>
+                        }
+                        </div>
+                    </div>
+                </div>
+    
+                {
+                    parseInt(percentage_voted) < 100 ?
+                    <div className="margin-top-50">
+            
+                    <div>
+                         <div className=" padding margin-bottom-20">
+                        <div className="h2">{positions[votedState]}</div>
+                        <div>You can only choose one candidate here</div>
+                    </div>
+                    <div className="row">
+                        { 
+                            candidates?.filter((doc)=> {
+                                if(doc.position == `${positions[votedState]}`){
+                                    return doc
+                                }
+                            } ).map((item, index) => (
+                        <div className="col sm-12 md-6 lg-4 padding" key={item.name} onClick={()=>HandleVote(item)}>
+                       <Vote_card data={item}/>
+                        </div>
+                            ))
+                        }
+                    </div>
+                    </div>
+               
+                </div>
+                : done_with_everything && <div className='thank_you_card'>
+                    <div className="row central">
+                        <div className="col sm-12 md-4 lg-4 paddding">
+                            <img src="/thank_you.svg" className='fit' alt="" />
+                        </div>
+                        <div className="col sm-12 md-8 lg-8 paddding">
+                           <div className="h4"> Thank you for casting your vote!</div>
+                           <div className="section">
+                           Please wait for the voting to conclude in order to see the results.
+                           </div>
+                           <div className="section">
+                            <Button 
+                            text="Click to LogOut"
+                            bg="primary"
+                            rounded
+                            funcss='padding-20'
+                            startIcon={<i className='fas fa-bars' />}
+                            fullWidth
+                            />
+                           </div>
+                        </div>
+                    </div>
+                </div>
+                }
+    
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  )
+      )
+  }else{
+    return <Loader />
+  }
 }

@@ -19,11 +19,9 @@ export default function Home() {
     password = FunGet.val('#password')
     if(email && password){
       setloader(true)
-      AddData('/tuc/login' , {email:email , password:password})
+      AddData('/login' , {email:email , password:password})
       .then(doc=>{
-        if(doc){
-          // navigate("/admin/index")
-          if(doc.error){
+          if(!doc.token){
             seterror({
               header:"Error" ,
               body:`${doc?.error}`
@@ -32,7 +30,7 @@ export default function Home() {
               seterror(false)
             }, 3000);
           }else{
-            GetUser(doc.user)
+            GetUser(doc.user.email)
             .then(getDoc=>{
               console.log(getDoc)
             if(getDoc.email){
@@ -49,7 +47,6 @@ export default function Home() {
          
           }
       
-        }
         setloader(false)
       })
       .catch(err=>{
