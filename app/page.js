@@ -74,6 +74,7 @@ export default function Home() {
   }
   return (
     <main className='login_bg'>
+
       {
         loader &&
         <Loader />
