@@ -1,6 +1,6 @@
 "use client";
 import './globals.css'
-import   Metadata from 'next'
+import   {Metadata} from 'next'
 import { Montserrat_Alternates } from 'next/font/google'
 import 'funuicss/css/fun.css'
 import Head from 'next/head'
