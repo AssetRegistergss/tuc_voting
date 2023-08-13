@@ -180,7 +180,7 @@ export default function Voting() {
          loading &&  <Loader />
         }
       <Nav />
-
+      
       <div className="padding-top-100">
         <div className="container">
             <div className="h2">Ghana Statistical Service TUC Voting</div>

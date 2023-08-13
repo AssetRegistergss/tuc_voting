@@ -3,7 +3,7 @@ import './globals.css'
 import { Montserrat_Alternates } from 'next/font/google'
 import 'funuicss/css/fun.css'
 import Head from 'next/head'
-Metadata
+
 import { useEffect } from 'react';
 const mont_serrat = Montserrat_Alternates({
    subsets: ["latin"] ,
