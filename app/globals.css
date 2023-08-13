@@ -49,6 +49,7 @@
     justify-content: space-between;
     height: 4rem;
     z-index: 2;
+    background-color:#FFF;
   }
   
 
@@ -72,10 +73,11 @@
   .vote_card{
     padding: 2rem;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-    transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.5s;
     border-radius: 3rem;
     cursor: pointer;
     background-color: white;
+    border: 0.2rem solid #fff;
   }
   
   .card_image_inside , .card_image{
@@ -94,9 +96,16 @@
     font-size: 1.2rem;
     color: #333;
   }
+  @media (max-width:600px){
+    .vote_card:hover{
+      transform: rotate(5deg) scale(1.1);
+      border: 0.2rem solid var(--secondary);
+   
+    }
+  }
   .vote_card:hover{
     transform: rotate(10deg) scale(1.3);
-    border: 0.2rem solid #f2f2f2;
+    border: 0.2rem solid var(--secondary);
   }
 
 .vote_progress_container , .vote_progress {
