@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@canvasjs/charts": "^3.7.15",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.13",
     "funuicss": "^1.9.24",
     "next": "13.4.13",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "recharts": "^2.7.3",
     "typicons.font": "^2.1.2"
   }
 }

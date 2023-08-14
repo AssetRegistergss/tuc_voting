@@ -17,8 +17,8 @@ export const isOnline = ()=>{
 export const logOut = ()=>{
     return new Promise((resolve, reject) => {
         sessionStorage.removeItem('user')
-        location.reload()
-    })
+        resolve()
+    }).then(()=>window.location.assign('/'))
 }
 
 

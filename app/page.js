@@ -24,7 +24,7 @@ export default function Home() {
           if(!doc.token){
             seterror({
               header:"Error" ,
-              body:`${doc?.error}`
+              message:`${doc?.error}`
             })
             setTimeout(() => {
               seterror(false)
@@ -51,7 +51,7 @@ export default function Home() {
       })
       .catch(err=>{
         seterror({
-          message:err.message,
+          message:JSON.stringify(err),
           header:'Error',
         })
         setTimeout(() => {

@@ -2,8 +2,7 @@
 import React, { useState , useEffect } from 'react'
 import {isOnline, logOut} from '../Functions/Functions'
 import Link from 'next/link'
-
-
+import  Button  from 'funuicss/component/Button';
 export default function Nav() {
 const [me, setme] = useState('')
 useEffect(() => {
@@ -30,7 +29,15 @@ if(me){
           </div>
           <div>
             <div>{me.full_name }</div>
-            {/* <div className='text-small'>IT</div> */}
+            <div className='text-small'>{me.role}</div>
+          </div>
+          <div className="margin-left-50">
+           <Button 
+           text="Sign Out"
+           funcss='card'
+           rounded
+           onClick={()=>logOut()}
+           />
           </div>
         </div>
         </div>
