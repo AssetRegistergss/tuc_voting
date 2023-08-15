@@ -8,7 +8,7 @@ import Button from "funuicss/component/Button"
 import {FunGet} from 'funuicss/js/Fun'
 import { useState } from 'react'
 import InfoModal from '@/components/Modals/InfoModal'
-import { AddData, GetUser } from '@/Functions/Functions';
+import { AddData, GetUser, SaveToken } from '@/Functions/Functions';
 import Loader from '@/components/Loader';
 export default function Home() {
   const [error, seterror] = useState("")
@@ -30,20 +30,25 @@ export default function Home() {
               seterror(false)
             }, 3000);
           }else{
-            GetUser(doc.user.email)
-            .then(getDoc=>{
-              console.log(getDoc)
-            if(getDoc.email){
-              new Promise((resolve, reject) => {
-                sessionStorage.setItem(
-                  'user' , 
-                  JSON.stringify(getDoc)
-                )
-                resolve()
-               })
-               .then(()=>window.location.assign('/voting'))
-            }
-            })
+          new Promise((resolve, reject) => {
+            SaveToken(doc.token)
+            resolve()
+          })
+         .then(()=>{
+          GetUser(doc.user.email)
+          .then(getDoc=>{
+          if(getDoc.email){
+            new Promise((resolve, reject) => {
+              sessionStorage.setItem(
+                'user' , 
+                JSON.stringify(getDoc)
+              )
+              resolve()
+             })
+             .then(()=>window.location.assign('/voting'))
+          }
+          })
+         })
          
           }
       

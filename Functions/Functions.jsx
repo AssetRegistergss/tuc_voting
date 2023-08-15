@@ -16,6 +16,12 @@ export const isOnline = ()=>{
 
 export const logOut = ()=>{
     return new Promise((resolve, reject) => {
+        function deleteCookie(name) {
+            document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
+          }
+          // Example usage: Remove the token cookie on logout
+          deleteCookie('authToken');
+
         sessionStorage.removeItem('user')
         resolve()
     }).then(()=>window.location.assign('/'))
@@ -59,3 +65,19 @@ export const GetUser = (email)=>{
           .catch(err=>reject(err))
     })
 }
+
+export async function SaveToken(token) {
+    const reversedString = token.split('').reverse().join('');
+    sessionStorage.setItem(
+        "token" ,
+        JSON.stringify(reversedString)
+    )
+  }
+  
+  export function GetToken() {
+    if(sessionStorage.getItem("token")){
+        let res = JSON.parse(sessionStorage.getItem('token'))
+        const decrypt = res.split('').reverse().join('');
+        return decrypt
+    }
+  }

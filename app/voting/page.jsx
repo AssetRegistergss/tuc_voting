@@ -4,11 +4,14 @@ import Vote_card from '@/components/Vote_card'
 import React, { useEffect, useState } from 'react'
 import ProgressBar from 'funuicss/component/ProgressBar'
 import Button from 'funuicss/component/Button';
-import { AddData, isOnline } from '@/Functions/Functions';
+import { AddData, EndPoint, GetToken, isOnline } from '@/Functions/Functions';
 import Loader from '@/components/Loader';
 import Admin from '../pages/admin';
 // import { TiFlashOutline } from "react-icons/ti";
+import Axios from 'axios';
+import InfoModal from '@/components/Modals/InfoModal';
 export default function Voting() {
+    const [error, seterror] = useState("")
     const [candidate_state, setcandidate_state] = useState('Chairman')
     const [candidates_voted_for, setcandidates_voted_for] = useState([])
     const [total_candidates, settotal_candidates] = useState(8)
@@ -32,8 +35,10 @@ export default function Voting() {
       if(!me){
         isOnline()
         .then(doc=>setme(doc))
+  
       }
     })
+
     
 
     const candidates = [
@@ -76,52 +81,52 @@ export default function Voting() {
         },
         {
             "name": 'Thomas Brown',
-            'img': '/candidates/thomas.jpg' ,
+            'img': 'https://picsum.photos/200' ,
             "position": 'Secretary',
         }
       ,
       {
         "name": 'Daniel Martinez',
-        'img': '/candidates/daniel.jpg' ,
+        'img': 'https://picsum.photos/200' ,
         "position": 'Secretary',
     },
     {
         "name": 'Liam Thompson',
-        'img': '/candidates/liam.jpg' ,
+        'img': 'https://picsum.photos/200' ,
         "position": 'Secretary',
     },
     {
         "name": 'Aria Clark',
-        'img': '/candidates/aria.jpg' ,
+        'img': 'https://picsum.photos/200' ,
         "position": 'Assistant Secretary',
     }
 
     ,
     {
         "name": 'Oliver Smith',
-        'img': '/candidates/oliver.jpg' ,
+        'img': 'https://picsum.photos/200' ,
         "position": 'Assistant Secretary',
 
     },
     {
         "name": 'Sophie Johnson',
-        'img': '/candidates/sophie.jpg' ,
+        'img': 'https://picsum.photos/200' ,
         "position": 'First Trustee',
     },
     {
         "name": 'Lucas Williams',
-        'img': '/candidates/lucas.jpg',
+        'img': 'https://picsum.photos/200',
         "position": 'Second Trustee',
     }
     ,
     {
         "name": 'Emily Davis',
-        'img': '/candidates/emily.jpg' ,
+        'img': 'https://picsum.photos/200' ,
         "position": 'First Trustee',
     },
     {
         "name": 'Ethan Wilson',
-        'img': '/candidates/ethan.jpg' ,
+        'img': 'https://picsum.photos/200' ,
         "position": 'First Trustee',
 
     },
@@ -133,7 +138,8 @@ export default function Voting() {
     ]
 
     const HandleVote = (doc)=>{
-
+        const token = GetToken()
+        console.log(token)
         new Promise((resolve, reject) => {
             candidates_voted_for.push(doc)
             setvotedState(votedState + 1)
@@ -164,12 +170,24 @@ export default function Voting() {
                     youth_rep:candidates_voted_for[7] ,
                     date:fullDate
                 }
-                AddData("/tuc" , data)
+                Axios.post( EndPoint + '/api/' + "tuc" , data , {
+                    headers:{
+                        authorization:`Bearer ${token}`
+                    }
+                })
                 .then(res => {
                     setdone_with_everything(true)
                     setloading(false)
                 } ).catch(err=>{
-                    console.error("Error in adding to db" +  JSON.stringify(err))
+                    seterror({
+                        header:"Error!" ,
+                        message: err.message
+                      })
+                      setTimeout(() => {
+                        seterror(false)
+                        window.location.reload()
+                      }, 3000);
+                    setloading(false)
                 })
 
             }else{
@@ -186,6 +204,9 @@ export default function Voting() {
              loading &&  <Loader />
             }
           <Nav  />
+          {
+      error &&   <InfoModal header={error.header} message={error.message} />
+    }
           
           <div className="padding-top-100">
            {
