@@ -36,7 +36,7 @@ if(me){
            text="Sign Out"
            funcss='card'
            rounded
-           onClick={()=>logOut()}
+          onClick={ () => (logOut()) }
            />
           </div>
         </div>

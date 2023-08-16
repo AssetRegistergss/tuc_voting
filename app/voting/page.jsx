@@ -4,7 +4,7 @@ import Vote_card from '@/components/Vote_card'
 import React, { useEffect, useState } from 'react'
 import ProgressBar from 'funuicss/component/ProgressBar'
 import Button from 'funuicss/component/Button';
-import { AddData, EndPoint, GetToken, isOnline } from '@/Functions/Functions';
+import { AddData, EndPoint, GetToken, isOnline, logOut } from '@/Functions/Functions';
 import Loader from '@/components/Loader';
 import Admin from '../pages/admin';
 // import { TiFlashOutline } from "react-icons/ti";
@@ -168,9 +168,9 @@ export default function Voting() {
                     first_trustee:candidates_voted_for[5] ,
                     second_trustee:candidates_voted_for[6] ,
                     youth_rep:candidates_voted_for[7] ,
-                    date:fullDate
+                    // date:fullDate
                 }
-                Axios.post( EndPoint + '/api/' + "tuc" , data , {
+                Axios.post(EndPoint + '/api/tuc' , data , {
                     headers:{
                         authorization:`Bearer ${token}`
                     }
@@ -179,14 +179,15 @@ export default function Voting() {
                     setdone_with_everything(true)
                     setloading(false)
                 } ).catch(err=>{
+                    console.log(err)
                     seterror({
-                        header:"Error!" ,
-                        message: err.message
+                        header:"Invalid Request" ,
+                        message: err.response.data.message
                       })
                       setTimeout(() => {
                         seterror(false)
                         window.location.reload()
-                      }, 3000);
+                      }, 4000);
                     setloading(false)
                 })
 
@@ -270,6 +271,7 @@ export default function Voting() {
                         funcss='padding-20'
                         startIcon={<i className='fas fa-bars' />}
                         fullWidth
+                        onClick={() => (logOut()) }
                         />
                        </div>
                     </div>

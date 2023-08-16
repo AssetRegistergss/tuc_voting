@@ -23,7 +23,7 @@ export default function Chart({container , data , title}) {
       }, []);
   return (
     <div>
-              <div id={container} className='lighter' style={{ height: '300px', width: '100%' }}></div>
+              <div id={container} className='lighter' style={{ height: '250px', width: '100%' }}></div>
     </div>
   )
 }
