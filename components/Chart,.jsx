@@ -28,7 +28,7 @@ export default function Chart({container , data , title}) {
           data &&
           data.map( doc => (
             <div className="col sm-6 lg-4 md-4 padding">
-              <div className="card" style={{margin:'0 0 1rem 0' , padding:'0.5rem' , borderRadius:'2rem'}}>
+              <div className="card" key={doc.label} style={{margin:'0 0 1rem 0' , padding:'0.5rem' , borderRadius:'2rem'}}>
                 {doc.label}
                 <div className="h2">
                   {doc.y}
