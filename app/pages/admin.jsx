@@ -17,7 +17,6 @@ export default function Admin() {
       }
     }).then(res => {
       setdata(res.data)
-      console.log(res.data)
     } )
     .catch( (err) => (console.log(err)) )
   }
@@ -43,14 +42,14 @@ export default function Admin() {
           filter == 'all' || filter == "chairman" ?
           <div className=" lighter result_card">
           <div>Election</div>
-          <div className="h4">Results for Chairman , Vice Chairman | Chairwoman</div>
+          <div className="h4">Results for Chairperson , Vice Chairperson | Chairwoman</div>
           <div className="margin-top-20">
             <div className="row">
               <div className="col sm-12 md-6 lg-6 padding">
               <div>
                   <Chart 
-                  container={"chairman"} 
-                  title={"Chairman"}
+                  container={"Chairperson"} 
+                  title={"Chairperson"}
                   data={data.chairman}
                   
                   />
@@ -60,7 +59,7 @@ export default function Admin() {
               <div>
                   <Chart 
                   container={"vice_chairman"} 
-                  title={"Vice Chairman"}
+                  title={"Vice Chairperson"}
                   data={data.vice_chairman}
                   
                   />

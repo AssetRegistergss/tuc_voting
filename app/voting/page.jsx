@@ -12,13 +12,13 @@ import Axios from 'axios';
 import InfoModal from '@/components/Modals/InfoModal';
 export default function Voting() {
     const [error, seterror] = useState("")
-    const [candidate_state, setcandidate_state] = useState('Chairman')
+    const [candidate_state, setcandidate_state] = useState('Chairperson')
     const [candidates_voted_for, setcandidates_voted_for] = useState([])
     const [total_candidates, settotal_candidates] = useState(8)
     const [percentage_voted, setpercentage_voted] = useState(0)
     const [positions, setpositions] = useState(
-       [ 'Chairman',
-       'Vice Chairman',
+       [ 'Chairperson',
+       'Vice Chairperson',
        'Vice Chairwoman',
        'Secretary',
        'Assistant Secretary',
@@ -43,95 +43,76 @@ export default function Voting() {
 
     const candidates = [
         {
-            "name": 'Iddris Abdul Wahab',
+            "name": 'Ernest Enyan',
             'img': '/candidates/john.jpg' ,
-            "position": 'Chairman',
-        },
-        {
-            "name": 'Michael Smith',
-            'img': '/candidates/michael.jpg' ,
-            "position": 'Chairman',
-        },
-        {
-            "name": 'Sarah Johnson',
-            'img': '/candidates/sarah.jpg' ,
-            "position": 'Chairman',
+            "position": 'Chairperson',
         }
-        
         ,
         {
-            "name": 'Jeniffer Jane',
+            "name": 'Dr. Emmanuel Dwamena Sasu',
             'img': '/candidates/jane.jpg',
-            "position": 'Vice Chairman',
+            "position": 'Vice Chairperson',
         },
         {
-            "name": 'Olivia Williams',
+            "name": 'Felix Kofi Debrah',
             'img': '/candidates/olivia.jpg' ,
-            "position": 'Vice Chairman',
+            "position": 'Vice Chairperson',
         },
         {
-            "name": 'Sophia Lee',
+            "name": 'Marian Grace Tagoe',
             'img': '/candidates/sophia.jpg' ,
-            "position": 'Vice Chairman',
-        },
-        {
-            "name": 'Emily Davis',
-            'img': '/candidates/emily.jpg' ,
             "position": 'Vice Chairwoman',
         },
         {
-            "name": 'Thomas Brown',
+            "name": 'Paul Seneadza',
             'img': 'https://picsum.photos/200' ,
             "position": 'Secretary',
         }
       ,
       {
-        "name": 'Daniel Martinez',
+        "name": 'Albert Frimpong-Ampofo',
         'img': 'https://picsum.photos/200' ,
         "position": 'Secretary',
-    },
-    {
-        "name": 'Liam Thompson',
-        'img': 'https://picsum.photos/200' ,
-        "position": 'Secretary',
-    },
-    {
-        "name": 'Aria Clark',
-        'img': 'https://picsum.photos/200' ,
-        "position": 'Assistant Secretary',
     }
-
     ,
     {
-        "name": 'Oliver Smith',
+        "name": 'Samuel R. Quarcoo',
         'img': 'https://picsum.photos/200' ,
         "position": 'Assistant Secretary',
 
     },
     {
-        "name": 'Sophie Johnson',
+        "name": 'Abraham Bosu',
         'img': 'https://picsum.photos/200' ,
         "position": 'First Trustee',
     },
     {
-        "name": 'Lucas Williams',
+        "name": 'Francis Siripi',
+        'img': 'https://picsum.photos/200' ,
+        "position": 'First Trustee',
+    },
+    {
+        "name": 'Charles K. Agbenu',
         'img': 'https://picsum.photos/200',
         "position": 'Second Trustee',
     }
     ,
-    {
-        "name": 'Emily Davis',
-        'img': 'https://picsum.photos/200' ,
-        "position": 'First Trustee',
-    },
-    {
-        "name": 'Ethan Wilson',
-        'img': 'https://picsum.photos/200' ,
-        "position": 'First Trustee',
 
-    },
     {
-        "name": 'Ava Jackson',
+        "name": 'Abdallah Mohammed',
+        'img': 'https://picsum.photos/200' ,
+        "position": 'Second Trustee',
+
+    }
+    ,
+    {
+        "name": 'Ahmed Salim Adam',
+        'img': '/candidates/ava.jpg' ,
+        "position": 'Youth Representatives',
+    }
+    ,
+    {
+        "name": 'Alberta Eshun',
         'img': '/candidates/ava.jpg' ,
         "position": 'Youth Representatives',
     }
@@ -158,16 +139,15 @@ export default function Voting() {
             if(candidates_voted_for.length == total_candidates){ 
                 setloading(true)
                 // done voting 
-                console.log(candidates_voted_for)
                 const data = {
-                    chairman:candidates_voted_for[0] ,
-                    vice_chairman:candidates_voted_for[1] ,
-                    vice_chairwoman:candidates_voted_for[2] ,
-                    secretary:candidates_voted_for[3] ,
-                    asst_secretary:candidates_voted_for[4] ,
-                    first_trustee:candidates_voted_for[5] ,
-                    second_trustee:candidates_voted_for[6] ,
-                    youth_rep:candidates_voted_for[7] ,
+                    chairman:candidates_voted_for[0],
+                    vice_chairman:candidates_voted_for[1],
+                    vice_chairwoman:candidates_voted_for[2],
+                    secretary:candidates_voted_for[3],
+                    asst_secretary:candidates_voted_for[4],
+                    first_trustee:candidates_voted_for[5],
+                    second_trustee:candidates_voted_for[6],
+                    youth_rep:candidates_voted_for[7],
                     // date:fullDate
                 }
                 Axios.post(EndPoint + '/api/tuc' , data , {
@@ -222,7 +202,7 @@ export default function Voting() {
                 <div className="vote_progress_container">
                     <div className="vote_progress gradient" style={{width:`${percentage_voted}%` , padding:`${parseInt(percentage_voted) > 0 ? '0 2rem' : ''}`}}>
                     {
-                        parseInt(percentage_voted) > 0 && <> <span>{`${percentage_voted}`}</span>%  </>
+                        parseInt(percentage_voted) > 0 && <> <span>{`${Math.floor(percentage_voted)}`}</span>%  </>
                     }
                     </div>
                 </div>
@@ -244,12 +224,46 @@ export default function Voting() {
                                 return doc
                             }
                         } ).map((item, index) => (
-                    <div className="col sm-12 md-6 lg-4 padding" key={item.name} onClick={()=>HandleVote(item)}>
+                    <div className="col sm-12 md-6 lg-4 padding" key={item.name} onClick={()=>{
+                        if( candidates?.filter((doc)=> {
+                            if(doc.position == `${positions[votedState]}`){
+                                return doc
+                            }
+                        } ).length > 1){
+                            HandleVote(item.name)
+                        }
+                    }}>
                    <Vote_card data={item}/>
                     </div>
                         ))
                     }
                 </div>
+                </div>
+                <div className='text-center margin-bottom-30'>
+                { 
+                        candidates?.filter((doc)=> {
+                            if(doc.position == `${positions[votedState]}`){
+                                return doc
+                            }
+                        } ).length == 1 &&
+                        <div>
+                            <button className='button padding-20 success circle' onClick={
+                                ()=>HandleVote(candidates?.filter((doc)=> {
+                                            if(doc.position == `${positions[votedState]}`){
+                                                return doc
+                                            }
+                                        } )[0].name)}>
+                               Yes
+                            </button>
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            <button className='button padding-20 danger circle' onClick={()=>HandleVote("no vote")}>
+                               No
+                            </button>
+                        </div>
+
+                    }
                 </div>
            
             </div>

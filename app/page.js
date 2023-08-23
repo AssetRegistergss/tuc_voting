@@ -30,14 +30,14 @@ export default function Home() {
               seterror(false)
             }, 3000);
           }else{
-          new Promise((resolve, reject) => {
-            SaveToken(doc.token)
-            resolve()
-          })
-         .then(()=>{
+        
           GetUser(doc.user.email)
           .then(getDoc=>{
           if(getDoc.email){
+          if(getDoc.voted && getDoc.role != 'super admin'){
+            window.location='/voted'
+          }else{
+            SaveToken(doc.token)
             new Promise((resolve, reject) => {
               sessionStorage.setItem(
                 'user' , 
@@ -47,8 +47,8 @@ export default function Home() {
              })
              .then(()=>window.location.assign('/voting'))
           }
+          }
           })
-         })
          
           }
       
@@ -93,13 +93,13 @@ export default function Home() {
       />
       <div>Enter your email and password to login</div>
       <div className="margin-top-30">
-      <input id='email' className='input full-width lighter standard' type="Email" placeholder='Email'/>
+      <input id='email' className='input full-width' type="Email" placeholder='Email'/>
       <p>
-        <input id='password' className='input full-width lighter standard' type="password" placeholder='Password' />
+        <input id='password' className='input full-width section' type="password" placeholder='Password' />
       </p>
      <div className="margin-top-40">
       <Button
-      text="Login Accoun"
+      text="Login Account"
       bg='gradient'
       fullWidth
       onClick={()=>HandleLogin()}
