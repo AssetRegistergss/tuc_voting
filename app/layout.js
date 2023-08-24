@@ -1,13 +1,13 @@
 "use client";
 import './globals.css'
-import { Montserrat_Alternates } from 'next/font/google'
+import { Nunito_Sans } from 'next/font/google'
 import 'funuicss/css/fun.css'
 import Head from 'next/head'
 
 import { useEffect } from 'react';
-const mont_serrat = Montserrat_Alternates({
+const font = Nunito_Sans({
    subsets: ["latin"] ,
-  weight: ['400', '700' , '100', '200' , '500' , '900' , '800'],
+  weight: ['400', '700' , '200' , '500' , '900' , '800'],
 style: ['normal', 'italic'], })
 
  const metadata = {
@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
   
   return (
     <html lang="en">
-      <body className={mont_serrat.className}>{children}</body>
+      <body className={font.className}>{children}</body>
     </html>
   )
 }

@@ -247,7 +247,7 @@ export default function Voting() {
                             }
                         } ).length == 1 &&
                         <div>
-                            <button className='button padding-20 success circle' onClick={
+                            <button className='button padding-20 h4 success circle' onClick={
                                 ()=>HandleVote(candidates?.filter((doc)=> {
                                             if(doc.position == `${positions[votedState]}`){
                                                 return doc
@@ -258,7 +258,7 @@ export default function Voting() {
                             &nbsp;
                             &nbsp;
                             &nbsp;
-                            <button className='button padding-20 danger circle' onClick={()=>HandleVote("no vote")}>
+                            <button className='button padding-20 h4 danger circle' onClick={()=>HandleVote("no vote")}>
                                No
                             </button>
                         </div>
