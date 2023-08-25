@@ -10,6 +10,7 @@ import Admin from '../pages/admin';
 // import { TiFlashOutline } from "react-icons/ti";
 import Axios from 'axios';
 import InfoModal from '@/components/Modals/InfoModal';
+import { Tick1 } from '@iconsans/react/linear';
 export default function Voting() {
     const [error, seterror] = useState("")
     const [candidate_state, setcandidate_state] = useState('Chairperson')
@@ -44,78 +45,78 @@ export default function Voting() {
     const candidates = [
         {
             "name": 'Ernest Enyan',
-            'img': '/candidates/john.jpg' ,
+            'img': '/user.svg' ,
             "position": 'Chairperson',
         }
         ,
         {
             "name": 'Dr. Emmanuel Dwamena Sasu',
-            'img': '/candidates/jane.jpg',
+            'img': '/user.svg',
             "position": 'Vice Chairperson',
         },
         {
             "name": 'Felix Kofi Debrah',
-            'img': '/candidates/olivia.jpg' ,
+            'img': '/user.svg' ,
             "position": 'Vice Chairperson',
         },
         {
             "name": 'Marian Grace Tagoe',
-            'img': '/candidates/sophia.jpg' ,
+            'img': '/user.svg' ,
             "position": 'Vice Chairwoman',
         },
         {
             "name": 'Paul Seneadza',
-            'img': 'https://picsum.photos/200' ,
+            'img': '/user.svg' ,
             "position": 'Secretary',
         }
       ,
       {
         "name": 'Albert Frimpong-Ampofo',
-        'img': 'https://picsum.photos/200' ,
+        'img': '/user.svg' ,
         "position": 'Secretary',
     }
     ,
     {
         "name": 'Samuel R. Quarcoo',
-        'img': 'https://picsum.photos/200' ,
+        'img': '/user.svg' ,
         "position": 'Assistant Secretary',
 
     },
     {
         "name": 'Abraham Bosu',
-        'img': 'https://picsum.photos/200' ,
+        'img': '/user.svg' ,
         "position": 'First Trustee',
     },
     {
         "name": 'Francis Siripi',
-        'img': 'https://picsum.photos/200' ,
+        'img': '/user.svg' ,
         "position": 'First Trustee',
     },
     {
         "name": 'Charles K. Agbenu',
-        'img': 'https://picsum.photos/200',
+        'img': '/user.svg',
         "position": 'Second Trustee',
     }
     ,
 
     {
         "name": 'Abdallah Mohammed',
-        'img': 'https://picsum.photos/200' ,
+        'img': '/user.svg' ,
         "position": 'Second Trustee',
 
     }
     ,
     {
         "name": 'Ahmed Salim Adam',
-        'img': '/candidates/ava.jpg' ,
+        'img': '/user.svg' ,
         "position": 'Youth Representatives',
     }
-    ,
-    {
-        "name": 'Alberta Eshun',
-        'img': '/candidates/ava.jpg' ,
-        "position": 'Youth Representatives',
-    }
+    // ,
+    // {
+    //     "name": 'Alberta Eshun',
+    //     'img': '/candidates/ava.jpg' ,
+    //     "position": 'Youth Representatives',
+    // }
     ]
 
     const HandleVote = (doc)=>{

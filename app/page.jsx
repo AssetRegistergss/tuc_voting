@@ -10,6 +10,8 @@ import { useState } from 'react'
 import InfoModal from '@/components/Modals/InfoModal'
 import { AddData, GetUser, SaveToken } from '@/Functions/Functions';
 import Loader from '@/components/Loader';
+import { User4Tick } from '@iconsans/react/linear';
+
 export default function Home() {
   const [error, seterror] = useState("")
   const [loader, setloader] = useState(false)
@@ -86,6 +88,10 @@ export default function Home() {
     }
    
     <div className="form">
+      <div className="section text-center">
+        <User4Tick fontSize={"4rem"} className='text-primary' /> 
+      </div>
+      
       <Typography
       text='Welcome Back!'
       heading='h2'

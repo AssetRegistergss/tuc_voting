@@ -6,6 +6,7 @@ import { AddData, EndPoint, GetToken, isOnline } from '@/Functions/Functions';
 import { FunRequest } from 'funuicss/js/Fun';
 import Axios  from 'axios';
 import Loader from '@/components/Loader';
+import Script from 'next/script';
 export default function Admin() {
   const [data, setdata] = useState("")
   useEffect( () => {
